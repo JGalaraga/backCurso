@@ -10,4 +10,4 @@ router.get("/:id", usuario_controller_1.getUnUsuario);
 router.delete("/:id", usuario_controller_1.deleteUsuario);
 router.put("/:id", usuario_controller_1.updateUsuario);
 exports.default = router;
-//# sourceMappingURL=usuario.ruoter.js.map
+//# sourceMappingURL=usuario.ruoter%20copy.js.map

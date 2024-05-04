@@ -7,10 +7,12 @@ const express_1 = __importDefault(require("express"));
 const connection_1 = require("./database/connection");
 const cors_1 = __importDefault(require("cors"));
 const usuario_ruoter_1 = __importDefault(require("./routes/usuario.ruoter"));
+const producto_ruoter_1 = __importDefault(require("./routes/producto.ruoter"));
 class Server {
     constructor() {
         this.apiPaths = {
-            usuario: "/api/v1/usuario"
+            usuario: "/api/v1/usuario",
+            producto: "/api/v1/producto"
         };
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || "3000";
@@ -32,6 +34,7 @@ class Server {
     }
     ruotes() {
         this.app.use(this.apiPaths.usuario, usuario_ruoter_1.default);
+        this.app.use(this.apiPaths.producto, producto_ruoter_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {

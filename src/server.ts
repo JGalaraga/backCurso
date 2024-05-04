@@ -2,12 +2,14 @@ import  express, { Application, Request, Response } from "express";
 import { dbConnection } from "./database/connection";
 import cors from "cors"
 import usuarioRoutes from "./routes/usuario.ruoter"
+import productoRoutes from "./routes/producto.ruoter"
 
 class Server{
     private app: Application;
     private port: string;
     private apiPaths = {
-        usuario: "/api/v1/usuario"
+        usuario: "/api/v1/usuario",
+        producto: "/api/v1/producto"
     }
 
 
@@ -44,6 +46,7 @@ class Server{
 
     ruotes(): void{
         this.app.use(this.apiPaths.usuario, usuarioRoutes)
+        this.app.use(this.apiPaths.producto, productoRoutes)
     }
 
     listen(): void{
