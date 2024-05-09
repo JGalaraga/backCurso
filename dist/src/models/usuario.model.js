@@ -29,6 +29,13 @@ const UsuarioSchema = new mongoose_1.Schema({
     fechaNacimiento: {
         type: Date,
     },
+    password: {
+        type: String,
+    },
+    rol: {
+        type: String,
+        default: "USER"
+    },
     createdAt: {
         type: Date,
         default: Date.now()

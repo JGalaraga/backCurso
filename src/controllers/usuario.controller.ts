@@ -1,15 +1,29 @@
 import { Request, Response } from "express"
 import UsuarioModel from "../models/usuario.model";
+import bcrypt from "bcryptjs"
 
 
 export const postUsuario = async(req: Request, res:Response) =>{
     const {body}=req;
+    const {email, password} = body
 
     try {
+
+        const existeEmail = await UsuarioModel.findOne({email: email})
+
+        if(existeEmail){
+            return res.status(409).json({
+                ok: false,
+                msg: `Ya existe el email ${email}`
+            })
+        }
 
         const newUsuario = await new  UsuarioModel({
             ...body
         })
+
+        const salt = bcrypt.genSaltSync(10)
+        newUsuario.password = bcrypt.hashSync(password, salt)
 
         const usuarioCreado = await newUsuario.save()
 

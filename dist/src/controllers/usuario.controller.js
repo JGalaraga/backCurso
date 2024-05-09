@@ -14,10 +14,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUsuario = exports.updateUsuario = exports.getUnUsuario = exports.getUsuarios = exports.postUsuario = void 0;
 const usuario_model_1 = __importDefault(require("../models/usuario.model"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const postUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
+    const { email, password } = body;
     try {
+        const existeEmail = yield usuario_model_1.default.findOne({ email: email });
+        if (existeEmail) {
+            return res.status(409).json({
+                ok: false,
+                msg: `Ya existe el email ${email}`
+            });
+        }
         const newUsuario = yield new usuario_model_1.default(Object.assign({}, body));
+        const salt = bcryptjs_1.default.genSaltSync(10);
+        newUsuario.password = bcryptjs_1.default.hashSync(password, salt);
         const usuarioCreado = yield newUsuario.save();
         res.status(200).json({
             ok: true,

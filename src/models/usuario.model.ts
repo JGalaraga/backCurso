@@ -30,6 +30,13 @@ const UsuarioSchema = new Schema({
     fechaNacimiento:{
         type: Date,
     },
+    password: {
+        type: String,
+    },
+    rol:{
+        type: String,
+        default: "USER"
+    },
     createdAt:{
         type: Date,
         default: Date.now()

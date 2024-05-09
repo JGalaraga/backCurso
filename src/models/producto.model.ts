@@ -13,10 +13,12 @@ const ProductoSchema = new Schema({
         unique: true
     },
     cantidad: {
-        type: Number
+        type: Number,
+        required: true,
     },
     precio:{
-        type: String
+        type: String,
+        required: true,
     },
     createdAt:{
         type: Date,
