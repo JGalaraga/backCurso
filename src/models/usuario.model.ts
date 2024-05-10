@@ -37,6 +37,10 @@ const UsuarioSchema = new Schema({
         type: String,
         default: "USER"
     },
+    token:{
+        type: String,
+        require: false
+    },
     createdAt:{
         type: Date,
         default: Date.now()
