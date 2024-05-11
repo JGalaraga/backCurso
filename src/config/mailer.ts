@@ -1,14 +1,21 @@
 import nodemailer  from "nodemailer";
+import { config } from "./config";
+
+const environment = config[process.env.NODE_ENV || "desarrollo"]
+
+const {host, port, email, password} = environment.email
 
 export const transporter = nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
-    port: 587,
+    host: host,
+    port: port,
+    secure: false,
     auth: {
-        user: 'corrine.funk25@ethereal.email',
-        pass: 'nTmsFuj9WqFYMFrRgD'
-    }
+        user: email,
+        pass: password
+    },
 });
 
+//console.log(host, port, email, password)
 //console.log("Entró")
 
 transporter

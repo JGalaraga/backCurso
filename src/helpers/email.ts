@@ -1,10 +1,15 @@
+import { config } from "../config/config"
 import { transporter } from "../config/mailer"
+
+const environment = config[process.env.NODE_ENV || "desarrollo"]
+
+const { from, email} = environment.email
 
 
 export const sendEmail =(to: string, subject: string, html: string) => {
     transporter.sendMail(
         {
-            from:  '"Corrine Tnez" <corrine.funk25@ethereal.email>',
+            from: `${from} ${email}`,
             to,
             subject,
             html,
@@ -15,7 +20,7 @@ export const sendEmail =(to: string, subject: string, html: string) => {
             }
             else{
                 console.log("Correo enviado")
-                //console.log(info)
+                //console.info(info.envelope)
             }
         }
     )

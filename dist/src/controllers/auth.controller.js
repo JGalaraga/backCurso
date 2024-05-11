@@ -21,6 +21,8 @@ const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const usuario_model_1 = __importDefault(require("../models/usuario.model"));
 const jwt_1 = __importDefault(require("../helpers/jwt"));
 const email_1 = require("../helpers/email");
+const path_1 = __importDefault(require("path"));
+const fs_1 = __importDefault(require("fs"));
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     try {
@@ -75,7 +77,15 @@ const olvidoContrasena = (req, resp) => __awaiter(void 0, void 0, void 0, functi
             //Guardar el Token en la db
             existeUsuario.token = token;
             yield existeUsuario.save();
-            (0, email_1.sendEmail)("corrine.funk25@ethereal.email", "Asunto", `Prueba de que envia ${token}`);
+            const nombre = existeUsuario.nombre;
+            const templatePath = path_1.default.join(__dirname, "../templates/olvidoContrasena.html"
+            //El templates del src hay que moverlo al dist porque contiene un html y el no lo lleva al dist
+            );
+            const emailTemplate = fs_1.default.readFileSync(templatePath, "utf8");
+            const personalizarEmail = emailTemplate
+                .replace("{{name}}", nombre)
+                .replace("{{token}}", existeUsuario.token);
+            (0, email_1.sendEmail)("galaragajuan97@gmail.com", "Cambio de contraseña", `${personalizarEmail}`);
             resp.status(200).json({
                 ok: true,
                 msg: "Proceso éxistoso",

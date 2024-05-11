@@ -9,6 +9,8 @@ import UsuarioModel from "../models/usuario.model";
 import generateJWT from "../helpers/jwt";
 import { CustomRequest } from "../middlewares/validate-jwt";
 import { sendEmail } from "../helpers/email";
+import path from "path"
+import fs from "fs"
 
 export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
@@ -74,7 +76,19 @@ export const olvidoContrasena = async (req: Request, resp: Response) =>{
       existeUsuario.token = token;
       await existeUsuario.save()
 
-      sendEmail("corrine.funk25@ethereal.email", "Asunto", `Prueba de que envia ${token}`)
+      const nombre = existeUsuario.nombre
+      const  templatePath = path.join(
+        __dirname,
+        "../templates/olvidoContrasena.html"
+        //El templates del src hay que moverlo al dist porque contiene un html y el no lo lleva al dist
+      )
+      const emailTemplate = fs.readFileSync(templatePath, "utf8")
+
+      const personalizarEmail = emailTemplate
+      .replace("{{name}}", nombre)
+      .replace("{{token}}", existeUsuario.token)
+
+      sendEmail("galaragajuan97@gmail.com", "Cambio de contraseña", `${personalizarEmail}`)
 
         resp.status(200).json({
           ok: true,
