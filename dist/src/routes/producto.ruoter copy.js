@@ -18,4 +18,4 @@ router.get("/:id", producto_controller_1.getUnProducto);
 router.put("/:id", producto_controller_1.updateProducto);
 router.delete("/:id", producto_controller_1.deleteUProducto);
 exports.default = router;
-//# sourceMappingURL=producto.ruoter.js.map
+//# sourceMappingURL=producto.ruoter%20copy.js.map

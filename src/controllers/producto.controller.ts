@@ -1,13 +1,16 @@
 import { Request, Response } from "express"
 import ProductoModel from "../models/producto.model";
+import { CustomRequest } from "../middlewares/validate-jwt";
 
 
-export const postProducto = async(req: Request, res:Response) =>{
+export const postProducto = async(req: CustomRequest, res:Response) =>{
     const {body}=req;
+    const id = req._id;
 
     try {
 
         const newProducto = await new  ProductoModel({
+            usuario: id,
             ...body
         })
 

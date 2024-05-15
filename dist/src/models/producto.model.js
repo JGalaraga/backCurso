@@ -16,13 +16,26 @@ const ProductoSchema = new mongoose_1.Schema({
         required: true,
     },
     precio: {
-        type: String,
+        type: Number,
         required: true,
+    },
+    distribuidor: {
+        type: Object,
+        required: true
+    },
+    opiniones: {
+        type: Object,
+        required: true
     },
     createdAt: {
         type: Date,
         default: Date.now()
     },
+    usuario: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "usuario",
+        required: true
+    }
 });
 const ProductoModel = (0, mongoose_1.model)("productos", ProductoSchema);
 exports.default = ProductoModel;

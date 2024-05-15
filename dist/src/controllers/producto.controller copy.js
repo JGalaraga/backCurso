@@ -107,4 +107,4 @@ const deleteUProducto = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.deleteUProducto = deleteUProducto;
-//# sourceMappingURL=producto.controller.js.map
+//# sourceMappingURL=producto.controller%20copy.js.map
