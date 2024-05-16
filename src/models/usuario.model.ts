@@ -48,5 +48,5 @@ const UsuarioSchema = new Schema({
     
 })
 
-const UsuarioModel: Model<any> = model("usuarios", UsuarioSchema)
+const UsuarioModel: Model<any> = model("usuario", UsuarioSchema)
 export default UsuarioModel;

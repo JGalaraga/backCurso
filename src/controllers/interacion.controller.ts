@@ -16,7 +16,7 @@ export const postInteracion = async(req: CustomRequest, res:Response) =>{
 
         const newInteraccion = await new  InteracionModel({
             usuario: id,
-            cliente: cliente,
+            cliente,
             ...body
         })
 
@@ -41,17 +41,24 @@ export const postInteracion = async(req: CustomRequest, res:Response) =>{
 
 
 
-export const getInteracciiones = async  (req: Request, res: Response) => {
+export const getInteracciiones = async  (req: CustomRequest, res: Response) => {
 
     try {
         
-        const interacciones = await InteracionModel.find();
+        const interacciones = await InteracionModel.find().populate({
+            path: "usuario",
+            select: "nombre email",
+        })
+        //.populate({
+        //    path: "cliente",
+        //    select: "nombre telefono",
+//}); tengo error aqui y debo solucionarlo
         res.json({
             ok: true,
             interacciones
         })
     } catch (error) {
-        
+        console.error(error)
         res.status(400).json({
             ok:false,
             msg: "Error al consultar las interacciones"

@@ -11,9 +11,17 @@ import { CustomRequest } from "../middlewares/validate-jwt";
 import { sendEmail } from "../helpers/email";
 import path from "path"
 import fs from "fs"
+import { obtenerUbicacionPorIP } from "../helpers/obtenerDireccionIp";
+import { config } from "../config/config";
+import UbicacionModel from "../models/ubicacionlp.model";
+import { body } from "express-validator";
 
+const environment = config[process.env.NODE_ENV || "desarrollo"]
 export const login = async (req: Request, res: Response) => {
+  //const ipAddress = req.ip || "207.90.194.2" "181.135.66.218"
+  const ipAddress = environment.ip ||  req.ip 
   const { email, password } = req.body;
+
 
   try {
     // Verificar el email
@@ -38,10 +46,23 @@ export const login = async (req: Request, res: Response) => {
     // Generar Token
     const token = await generateJWT(usuario._id, usuario.email);
 
+    // console.log("req", req.ip)
+    
+    const ubicacionIp = await obtenerUbicacionPorIP(ipAddress)
+
+  const ubicacion = new  UbicacionModel({
+    usuario: usuario.id,
+    ...ubicacionIp
+  })
+
+  const ubucacionGuardada = await ubicacion.save()
+
+
     res.status(200).json({
       ok: true,
       usuario,
       token,
+      ubucacionGuardada
     });
   } catch (error) {
     res.status(400).json({

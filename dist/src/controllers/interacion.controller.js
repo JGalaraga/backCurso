@@ -21,7 +21,7 @@ const postInteracion = (req, res) => __awaiter(void 0, void 0, void 0, function*
     //const idCliente = "664400bd633a2398bb4c9cb0"
     const cliente = yield usuario_model_1.default.findOne();
     try {
-        const newInteraccion = yield new interaccion_model_1.default(Object.assign({ usuario: id, cliente: cliente }, body));
+        const newInteraccion = yield new interaccion_model_1.default(Object.assign({ usuario: id, cliente }, body));
         const interaccionCreada = yield newInteraccion.save();
         res.status(200).json({
             ok: true,
@@ -41,13 +41,21 @@ const postInteracion = (req, res) => __awaiter(void 0, void 0, void 0, function*
 exports.postInteracion = postInteracion;
 const getInteracciiones = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const interacciones = yield interaccion_model_1.default.find();
+        const interacciones = yield interaccion_model_1.default.find().populate({
+            path: "usuario",
+            select: "nombre email",
+        });
+        //.populate({
+        //    path: "cliente",
+        //    select: "nombre telefono",
+        //}); tengo error aqui y debo solucionarlo
         res.json({
             ok: true,
             interacciones
         });
     }
     catch (error) {
+        console.error(error);
         res.status(400).json({
             ok: false,
             msg: "Error al consultar las interacciones"

@@ -39,13 +39,18 @@ export const getProductos = async  (req: Request, res: Response) => {
 
     try {
         
-        const productos = await ProductoModel.find();
+        const productos = await ProductoModel.find().populate({
+            //todos los modelos deben ser en minusculas las tablas, 
+            //para que funcione lo del populate en el path ya qu debe ser en minusculas
+            path: "usuario",
+            select: "nombre",
+        });
         res.json({
             ok: true,
             productos
         })
     } catch (error) {
-        
+        console.error(error)
         res.status(400).json({
             ok:false,
             msg: "Error al consultar los productos"

@@ -37,6 +37,6 @@ const ProductoSchema = new mongoose_1.Schema({
         required: true
     }
 });
-const ProductoModel = (0, mongoose_1.model)("productos", ProductoSchema);
+const ProductoModel = (0, mongoose_1.model)("producto", ProductoSchema);
 exports.default = ProductoModel;
 //# sourceMappingURL=producto.model.js.map

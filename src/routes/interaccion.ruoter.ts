@@ -8,7 +8,7 @@ import { validateJWT } from "../middlewares/validate-jwt"
 
 const router =  Router()
 
-router.get("/", getInteracciiones)
+router.get("/", validateJWT, getInteracciiones)
 router.post("/", [
     check("descripcion", "La descripcion es obligatoria").not().isEmpty(), validateFields], validateJWT, postInteracion)
 router.put("/:id", updateInteraccion)

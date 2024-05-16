@@ -23,7 +23,13 @@ const jwt_1 = __importDefault(require("../helpers/jwt"));
 const email_1 = require("../helpers/email");
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
+const obtenerDireccionIp_1 = require("../helpers/obtenerDireccionIp");
+const config_1 = require("../config/config");
+const ubicacionlp_model_1 = __importDefault(require("../models/ubicacionlp.model"));
+const environment = config_1.config[process.env.NODE_ENV || "desarrollo"];
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    //const ipAddress = req.ip || "207.90.194.2" "181.135.66.218"
+    const ipAddress = environment.ip || req.ip;
     const { email, password } = req.body;
     try {
         // Verificar el email
@@ -44,10 +50,15 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         // Generar Token
         const token = yield (0, jwt_1.default)(usuario._id, usuario.email);
+        // console.log("req", req.ip)
+        const ubicacionIp = yield (0, obtenerDireccionIp_1.obtenerUbicacionPorIP)(ipAddress);
+        const ubicacion = new ubicacionlp_model_1.default(Object.assign({ usuario: usuario.id }, ubicacionIp));
+        const ubucacionGuardada = yield ubicacion.save();
         res.status(200).json({
             ok: true,
             usuario,
             token,
+            ubucacionGuardada
         });
     }
     catch (error) {

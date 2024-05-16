@@ -71,5 +71,6 @@ const ProductoSchema = new Schema<ProductoInterface>({
     }
 })
 
-const ProductoModel: Model<any> = model<ProductoInterface>("productos", ProductoSchema)
+const ProductoModel: Model<ProductoInterface> = model<ProductoInterface>("producto", ProductoSchema)
+
 export default ProductoModel;

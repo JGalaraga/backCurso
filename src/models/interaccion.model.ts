@@ -28,11 +28,11 @@ const InteracionSchema = new Schema<InteracionInterface>({
 
     cliente: {
         type: Schema.Types.ObjectId,
-        ref: "Cliente",
+        ref: "cliente",
         required: false
     },
 
 })
 
-const InteracionModel: Model<any> = model<InteracionInterface>("interaciones", InteracionSchema)
+const InteracionModel: Model<InteracionInterface> = model<InteracionInterface>("interaccion", InteracionSchema)
 export default InteracionModel;

@@ -17,10 +17,10 @@ const InteracionSchema = new mongoose_1.Schema({
     },
     cliente: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: "Cliente",
+        ref: "cliente",
         required: false
     },
 });
-const InteracionModel = (0, mongoose_1.model)("interaciones", InteracionSchema);
+const InteracionModel = (0, mongoose_1.model)("interaccion", InteracionSchema);
 exports.default = InteracionModel;
 //# sourceMappingURL=interaccion.model.js.map

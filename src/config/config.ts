@@ -16,7 +16,9 @@ export const config: any = {
         },
 
         jwSecret: process.env.JWTSECRET,
-        jwtSecretPass: process.env.JWT_SECRET_PASS
+        jwtSecretPass: process.env.JWT_SECRET_PASS,
+        ipApi: process.env.IP_API,
+        ip: process.env.IP,
     },
 
     produccion:{
@@ -32,7 +34,8 @@ export const config: any = {
         },
 
         jwSecret: process.env.JWTSECRET,
-        jwtSecretPass: process.env.JWT_SECRET_PASS
+        jwtSecretPass: process.env.JWT_SECRET_PASS,
+        ipApi: process.env.IP_API
     },
 
     pruebas:{
@@ -50,6 +53,7 @@ export const config: any = {
         },
 
         jwSecret: process.env.JWTSECRET,
-        jwtSecretPass: process.env.JWT_SECRET_PASS
+        jwtSecretPass: process.env.JWT_SECRET_PASS,
+        ipApi: process.env.IP_API
     },
 }

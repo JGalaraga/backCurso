@@ -38,13 +38,19 @@ const postProducto = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 exports.postProducto = postProducto;
 const getProductos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const productos = yield producto_model_1.default.find();
+        const productos = yield producto_model_1.default.find().populate({
+            //todos los modelos deben ser en minusculas las tablas, 
+            //para que funcione lo del populate en el path ya qu debe ser en minusculas
+            path: "usuario",
+            select: "nombre",
+        });
         res.json({
             ok: true,
             productos
         });
     }
     catch (error) {
+        console.error(error);
         res.status(400).json({
             ok: false,
             msg: "Error al consultar los productos"

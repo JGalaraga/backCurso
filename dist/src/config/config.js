@@ -15,7 +15,9 @@ exports.config = {
             from: process.env.FROM_EMAIL_DESARROLLO
         },
         jwSecret: process.env.JWTSECRET,
-        jwtSecretPass: process.env.JWT_SECRET_PASS
+        jwtSecretPass: process.env.JWT_SECRET_PASS,
+        ipApi: process.env.IP_API,
+        ip: process.env.IP,
     },
     produccion: {
         database: {
@@ -28,7 +30,8 @@ exports.config = {
             password: '',
         },
         jwSecret: process.env.JWTSECRET,
-        jwtSecretPass: process.env.JWT_SECRET_PASS
+        jwtSecretPass: process.env.JWT_SECRET_PASS,
+        ipApi: process.env.IP_API
     },
     pruebas: {
         database: {
@@ -42,7 +45,8 @@ exports.config = {
             from: process.env.FROM_EMAIL_PRUEBAS,
         },
         jwSecret: process.env.JWTSECRET,
-        jwtSecretPass: process.env.JWT_SECRET_PASS
+        jwtSecretPass: process.env.JWT_SECRET_PASS,
+        ipApi: process.env.IP_API
     },
 };
 //# sourceMappingURL=config.js.map
